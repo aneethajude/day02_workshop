@@ -11,6 +11,9 @@ public class BankAccount {
     private boolean isActive = true;
     private Date accountStartDate;
     private Date accountEndDate;
+    private String uuid;
+    private String uuid2;
+    private double initialbalance;
     
     public BankAccount(String accountNo, String fullname, double balance, boolean isActive, Date accountStartDate,
             Date accountEndDate) {
@@ -21,6 +24,16 @@ public class BankAccount {
         this.accountStartDate = accountStartDate;
         this.accountEndDate = accountEndDate;
     }
+    public BankAccount(String uuid, double initialBalance) {
+        
+        this.accountNo = uuid;
+        double balance = initialBalance;
+    }
+    /**
+     * @param uuid
+     * @param initialBalance
+    ja */
+    
     public String getAccountNo() {
         return accountNo;
     }
@@ -54,7 +67,43 @@ public class BankAccount {
     public void setAccountEndDate(Date accountEndDate) {
         this.accountEndDate = accountEndDate;
     }
+    public void showAccount(){
+        System.out.println("Account No:"+accountNo);
+        System.out.println("Full Name "+fullname);
+        System.out.println("Balance : "+balance);
 
+    }
+    @Override
+    public String toString() {
+        return "BankAccount [accountNo=" + accountNo + ", fullname=" + fullname + ", balance=" + balance + ", isActive="
+                + isActive + ", accountStartDate=" + accountStartDate + ", accountEndDate=" + accountEndDate + "]";
+    }
 
+    public void deposit(double amount){
+
+        if(!isActive){
+            throw new IllegalArgumentException("You cannot deposit to closed acc");
+        }
+        if(amount <0){
+            throw new IllegalArgumentException("You cannot make ng dep");
+        }
+        if(amount>0){
+            balance = balance+amount;
+        }
+
+    }
+    public void withdraw(double amount)  {
+
+        if(!isActive){
+            throw new IllegalArgumentException("You cannot withdraw");
+                    }
+        if(balance<amount){
+            throw new IllegalArgumentException("You bal is less than"+amount);
+        }
+        if(balance >amount){
+            balance = balance-amount;
+        }
+
+    }
     
 }
